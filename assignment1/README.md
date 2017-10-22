@@ -113,9 +113,6 @@ felipe (score = 0.00079)
 jerry seinfeld (score = 0.00078)
 ```
 
-Testando com efeito de caricatura:
-
-
 
 ## Falhas
 

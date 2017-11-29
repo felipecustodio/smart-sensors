@@ -1,8 +1,8 @@
-# SSC0715 - Smart Sensors
-
-![Kinect](https://media.giphy.com/media/rVUyzVPZbfgZy/giphy.gif)
-
-Code repository for SSC0715 - Smart Sensors, at ICMC - University of Sao Paulo
+<p align="center">
+  <img src="https://media.giphy.com/media/rVUyzVPZbfgZy/giphy.gif"/>
+  <h1 align="center">SSC0715 - Smart Sensors</h1>
+  <p align="center">College studies on  SSC0715 - Smart Sensors, at ICMC - University of Sao Paulo.</p>
+</p>
 
 Work done in cooperation with [@GabrielScalici](https://github.com/GabrielScalici)
 

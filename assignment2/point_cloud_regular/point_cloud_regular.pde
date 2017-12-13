@@ -1,74 +1,68 @@
+// http://colorhunt.co/c/97656
+
+import peasy.*;
+
 float x,y,z;
-float xmag, ymag = 0;
-float newXmag, newYmag = 0;
 
-int zoom = 0;
+float offset_z = -4.0; // ground offset
+  
+Table points;  
 
-float offset_z = -4.0; // chão
-  
-Table points;
-  
-PrintWriter output;
+PeasyCam cam;
 
 void setup() {
-  size(200,200,P3D);
+  size(800,600,P3D);
   x = width/2;
   y = height/2;
   z = -30;
-  // read points
-  points = loadTable("points3.csv", "header");
   
+  surface.setTitle("Where is my AliExpress package?");
+  
+  // read points
+  points = loadTable("points2.csv", "header");
+  
+  // setup camera
+  cam = new PeasyCam(this, 60, 650, 2*PI, 800);
+  cam.rotateX(1);
+  cam.rotateZ(-15);
+  cam.rotateY(-.8);
+
+  //smooth();
+  println("Total points = " + points.getRowCount());
 }
 
 void draw() {
   
-  background(0.5);
-  pushMatrix(); 
+  background(#B0DEDB);
+  pushMatrix();  
   
-  lights();
+  cam.beginHUD();
+    textSize(16);
+    text("FPS: " + str(frameRate), 10, 30); 
+    fill(#583131);
+  cam.endHUD(); // always!
   
-  translate(x,y,z);
-  scale(zoom);
-  
-  newXmag = mouseX/float(width) * TWO_PI;
-  newYmag = mouseY/float(height) * TWO_PI;
-  
-  float diff = xmag-newXmag;
-  if (abs(diff) >  0.01) { 
-    xmag -= diff/4.0; 
-  }
-  
-  diff = ymag-newYmag;
-  if (abs(diff) >  0.01) { 
-    ymag -= diff/4.0; 
-  }
-  
-  rotateX(-ymag); 
-  rotateY(-xmag); 
-  
+  translate(x,y+50,z+500); 
+
+ 
   beginShape(POINTS);
-    stroke(255,0,0);
+    strokeWeight(1);
     for (TableRow row : points.rows()) {
-     
        float x = row.getFloat("x");
        float y = row.getFloat("y");
        float z = row.getFloat("z");
        if (z > offset_z) {
+         if (y < 160) {
+           stroke(#FC6E5E);
+         } else {
+           stroke(#583131);
+         }
          vertex(x,y,z);
+         //cam.lookAt(screenX(x,y,z), screenY(x,y,z), z-800);
+         
        } 
     }
-    strokeWeight(1);
   endShape();
 
-  
   popMatrix(); 
 }
-
-void mouseWheel(MouseEvent event) {;
-    float e = event.getAmount();
-    if (e > 0) {
-      zoom += 1;
-    } else {
-      zoom -= 1;
-    }
-  }

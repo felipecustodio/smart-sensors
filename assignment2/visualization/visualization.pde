@@ -3,7 +3,8 @@
 import peasy.*;
 
 float x,y,z;
-
+int weight = 1;
+boolean animation = true;
 float offset_z = -4.0; // ground offset
   
 Table points;
@@ -16,7 +17,6 @@ void setup() {
   x = width/2;
   y = height/2;
   z = -30;
-  
   surface.setTitle("Where is my AliExpress package?");
   
   // read points
@@ -28,14 +28,15 @@ void setup() {
   cam.rotateX(1);
   cam.rotateZ(-15);
   cam.rotateY(-.8);
-
+  
   //smooth();
   println("Total points = " + points.getRowCount());
 }
 
 void draw() {
   
-  background(#B0DEDB);
+  //background(#B0DEDB);
+  background(#6C567B);
   pushMatrix();  
   
   // HUD
@@ -45,7 +46,7 @@ void draw() {
     fill(#583131);
   cam.endHUD();
   
-  translate(x,y+50,z+500); 
+  //translate(x,y+50,z+500); 
 
   // Point cloud
   beginShape(POINTS);
@@ -54,22 +55,42 @@ void draw() {
        float x = row.getFloat("x");
        float y = row.getFloat("y");
        float z = row.getFloat("z");
-       stroke(#583131);
+       stroke(#FC6E5E);
        vertex(x,y,z);
     }
   endShape();
   
   // Identified
   beginShape(POINTS);
-    strokeWeight(1);
+    float x = 0;
+    float y = 0;
+    float z = 0;
+    //strokeWeight(weight);
     for (TableRow row : identified.rows()) {
-       float x = row.getFloat("x");
-       float y = row.getFloat("y");
-       float z = row.getFloat("z");
-       stroke(#FC6E5E);
-       vertex(x,y,z);
+       x = row.getFloat("x");
+       y = row.getFloat("y");
+       z = row.getFloat("z");
+       stroke(#F8B195);
+       //vertex(x,y,z);
+       
     }
+    pushMatrix();
+    translate(x,y,z);
+    if (weight >= 10) {
+      weight = 0;
+    } else {
+      weight++;
+    }
+    sphere(weight);
+    popMatrix();
+ 
   endShape();
+  weight++;
 
   popMatrix(); 
+}
+
+
+void mouseClicked() {
+  saveFrame("screenshot.png");
 }

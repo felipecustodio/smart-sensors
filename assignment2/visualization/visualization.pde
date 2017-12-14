@@ -19,7 +19,7 @@ void setup() {
   surface.setTitle("Where is my AliExpress package?");
   
   // read points
-  points = loadTable("points2.csv", "header");
+  points = loadTable("../csv/Felipe1.csv", "header");
   
   // setup camera
   cam = new PeasyCam(this, 60, 650, 2*PI, 800);
@@ -51,16 +51,12 @@ void draw() {
        float x = row.getFloat("x");
        float y = row.getFloat("y");
        float z = row.getFloat("z");
-       if (z > offset_z) {
-         if (y < 160) {
-           stroke(#FC6E5E);
-         } else {
-           stroke(#583131);
-         }
-         vertex(x,y,z);
-         //cam.lookAt(screenX(x,y,z), screenY(x,y,z), z-800);
-         
-       } 
+       if (y < 160) {
+         stroke(#FC6E5E);
+       } else {
+         stroke(#583131);
+       }
+       vertex(x,y,z);
     }
   endShape();
 

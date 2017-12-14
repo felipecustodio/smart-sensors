@@ -1,13 +1,9 @@
 #!/usr/bin/env python
+'''
+Export OBJ as point cloud
+'''
 import sys
 import operator
-import matplotlib.pyplot as plt
-import numpy as np
-
-from sklearn import preprocessing
-from sklearn import utils
-from sklearn.cluster import KMeans
-from sklearn.neighbors import KNeighborsClassifier
 
 if (len(sys.argv) < 2):
     print("Usage: obj2points.py file.obj")
@@ -28,4 +24,4 @@ for line in mesh:
         # ground offset
         if (z * 100) > -4.0:
             vertex[x, y] = z
-            print(str(x*100) + "," + str(y*100) + "," + str(z*100))
+            print(str(x*100) + "," + str(y*100) + "," + (z*100))

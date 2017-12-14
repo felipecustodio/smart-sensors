@@ -11,3 +11,4 @@ Work done in cooperation with [@GabrielScalici](https://github.com/GabrielScalic
 
 # Assignment 2
 * Object recognition using 3D images obtained via multiple photos. 
+* Using Weka to perform analysis (Kmeans)
